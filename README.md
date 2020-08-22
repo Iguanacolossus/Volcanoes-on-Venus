@@ -5,7 +5,7 @@
 - link to data: https://www.kaggle.com/fmena14/volcanoesvenus?</br>
 - X: csv of 6999 flattened images with 12100 pixels each:</br>
 ![eda1](images/volcanoe-eda-screenshot.png)</br>
-- Labels: type colum has a few differet values that marke the confidance in the detection by labelers.</br>
+- Labels: type column has a few different values that mark the confidence in the detection by labelers.</br>
 ![eda2](images/vov_sreen2.png) </br>
 
 **MVP**
