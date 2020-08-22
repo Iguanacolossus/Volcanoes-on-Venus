@@ -27,7 +27,7 @@
 
 
 
-## (2) Detection and Classification of LAN network Intusion:
+## (2) Detection and Classification of LAN network Intrusion:
 **The Data**
 - link : http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html
 - "nine weeks of raw TCP dump data were collected from a typical US air force LAN. During the use of the LAN, several attacks were performed on it. The raw packet data were then aggregated into connection data. Per record, extra features were derived, based on domain knowledge about network attacks. 
@@ -41,9 +41,10 @@
  
 **My worries**
 - this data table is so large my jupyter notebook kernel crashed when I tried to load it into pandas. I will have to do some research on how to deal with this.
+- also pretty old data
 
 
-## (3) Identifying  of palmoil plantations from satelight Images: 
+## (3) Identifying  of palm oil plantations from satellite Images: 
 - data - https://www.kaggle.com/c/widsdatathon2019/data?select=holdout.csv
-- identification of palm oil plantation in satelit images.
-- have not looked as deep into this one. just putting here as another option
+- identification of palm oil plantation in satellite images.
+- have not looked as deep into this one. just putting here as another option in case you tell me i should  use a newer data set then the other two
