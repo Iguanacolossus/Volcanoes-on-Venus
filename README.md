@@ -37,6 +37,7 @@
 **MVP**
 - perform some techniques to balance classes
 - compare various models on their accuracy scores on classification
+- try clustering for anomoly detection
 - use profit curve to pick thresholds to try and prevent the more costly but less frequent attacks
  
 **My worries**
