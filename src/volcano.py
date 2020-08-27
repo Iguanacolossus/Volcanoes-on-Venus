@@ -64,7 +64,7 @@ if __name__=='__main__':
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Reshape, Dropout
 
-
+    '''
     X = pd.read_csv('../volcanoe-data/volcanoes_train/train_images.csv',header= None)
     y = pd.read_csv('../volcanoe-data/volcanoes_train/train_labels.csv')
 
@@ -78,4 +78,6 @@ if __name__=='__main__':
     X_train, X_vali, y_train, y_vali = train_test_split(X, y, test_size = 0.2, random_state = 666)
 
     volcano_images(X_train,y_train)
+    '''
+    .min
     

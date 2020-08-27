@@ -14,8 +14,9 @@ Images from this data source come in a csv of 7000 flattened images with 12100 p
 
 
 <!-- ![eda1](images/volcanoe-eda-screenshot.png)</br> -->
-**Can you tell if there is a volcano in these images?**
-![images](images/volcano_images.png)</br> As you can see, The images can be very hard to distinguish by eye. There relativly few planetary geologist specializig in the survface of venues. I hope to make a model that can classify wether there is a volcanoe in these images so that they very few experts can get right to the business of tudying volcanoes with out having to sift through and label images with there precious time.
+**Can you tell if there is a volcano in these images?**<br>
+![images](images/volcano_images.png)</br> 
+As you can see, The images can be very hard to distinguish by eye. There relativly few planetary geologist specializig in the survface of venues. I hope to make a model that can classify wether there is a volcanoe in these images so that they very few experts can get right to the business of tudying volcanoes with out having to sift through and label images with there precious time.
 
 <!--![eda2](images/vov_sreen2.png) --></br>
 
