@@ -1,4 +1,4 @@
-# Identifying and Measuring Volcanoes with Convolutional Neural Networks
+# Identifying Volcanoes with Convolutional Neural Networks
 
  ## **The Data**
  This dataset contains images collected by the Magellan expedition to Venus. Venus is the
@@ -150,10 +150,10 @@ Below is a histogram of the true radii, and both model's predictions. I wanted t
 ________
 # Conclution
  - A vary simple CNN did a great job at predicting the presence of a volcano in an image.  
- - This classification model could trusted to aid in the work of planetary geologists and can be taylored for different ratios of false positives to pfase negative by picking a apropriate threshold.
- - The same architecture and training time did very poorly when adapted for use as a regression model to predict radii of volcanoes. 
- - Given more time I  believe that a good model could be made if you were able to train the deep CNN longer.The aumentation may have helped the model but it is much much faster to trying traingin the deep model for much longer. 
-
+ - This classification model could be trusted to aid in the work of planetary geologists and can be taylored for different ratios of false positives to false negatives by picking a apropriate threshold to apply to the output of the model.
+ - The same architecture and training time did very poorly when adapted for use as a regression model to predict radii of volcanoes and wth the timealowed I was not able to make a good model for this aplocation. 
+ - Moveing forward I believe a more useful models could be made to predict which group (large or small) a volcano is in. Or a model that does object detection so as to be able to check for one or more volcanoes anywhere in an image.
+ 
 
 
 
