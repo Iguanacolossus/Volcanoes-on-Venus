@@ -26,19 +26,20 @@ As you can see, The images can be very hard to distinguish by eye. There are rel
 I hope to make a model that can classify whether there is a volcano in these images so that few experts can get right to the business of studying volcanoes 
 without having to sift through and label images first.
 
-<!--![eda2](images/vov_sreen2.png) --></br>
+<!--![eda2](images/vov_sreen2.png) --><br>
+
 ## **Binary Classification: Volcano or Not?**
 **Class Imbalance check**</br>
 During EDA I checked to see how the volcano or not volcano labels are distributed. <br>![classes](images/class-imbalance.png) 
 </br>This shows a class imbalance with a ratio of 1:6 positives class. I will first try to make a model without correcting for class imbalance and see how it scores. I will pay close attention to the ratio of False negatives to False positives to make sure my model does not mislead the planetary geologists by under predicting the minority class. </br>
 
-## **Binary Classification: Volcano or Not?****Class Imbalance check**</br>During 
 **Archatecture**</br>The first architecture I tried is shown below:![im](images/arc_0.png)<br>
 I used relu activation for each layer except the last were I used sigmoid. I also chose an adam optimizer and loss function of binary cross entropy. The learning curve is as follows:<br>
 ![im](images/lr_plot_one.png)<br>
 The loss looks good with this model but the accuracy looked Pretty constant. Instead of letting it fit another time with more epochs, I decided to go ahead and modify the architecture. <br>
-I went through a few iterations of architecture, adding drop out to prevent overfitting, and adding more filters until I came up with an architecture I was happy with.<br>EDA I checked to see how the volcano or not volcano labels are distributed. <br>![classes](images/class-imbalance.png) </br>This shows a class imbalance with a ratio of 1:6 positives class. I will first try to make a model without correcting for class imbalance and see how it scores. I will pay close attention to the ratio of False negatives to False positives to make sure my model does not mislead the planetary geologists by under predicting the minority class.
+I went through a few iterations of architecture, adding drop out to prevent overfitting, and adding more filters until I came up with an architecture I was happy with.<br>
 
+**Better Architecture**<br>
 The architecture I found to work very well is as follows:</br>
 ```filters:```6 on first layer, 12 on second layer<br>
 ```filter size:``` 3x3 pixles <br>
@@ -65,7 +66,7 @@ Looking at a sample of hold out images we can see how well the CNN was able to p
 ![vs](images/pred_vs_truth.png)<br>
 The white annotaion is the predicted probability of the presence of at least one volcano. The default threshold of .5 was used in the training of the model. We can see from the histogram of predicted probabilities and the confusion matrix below, that that default value will work very well with our choice of sigmoid output layer. 
 
-![frq](images/prob_freq.png)
+<!--![frq](images/prob_freq.png)-->
 
 **Confusion Matrix**<br>
 ![cm](images/cm3.png)<br>
@@ -89,26 +90,27 @@ I first filted the data set to only samples that have a radius measurment. This 
 ![hist](images/radius_hist.png)<br>
 
 On the first training run of this CNN with this dataset I ran it for the same amount of epochs that I used to train this similar architecture for binary classification. It showed not much learning:<br>
-![lr15](images/radius_lr_15.png)<br>
+![lr15](images/lr_plot_reg_1.png)<br>
 
 I decided to run for many more epochs to see if this would eventually bring my MSE down.  <br>
 
 Below is a plot of the fisrt 100. <br>
-![mi](images/lr_plot_radius1.png)<br>
-It looks like the MSE may still come down so I fit again with 100 more epochs:<br>
-![sjd](images/lr_plot_radius2.png)
+![mi](images/lr_plot_reg_2.png)<br>
+It looks like the MSE may still come down so I fit again with 200 more epochs:<br>
+![sjd](images//lr_plot_reg_3.png)
+![sjd](images//lr_plot_reg_4.png)
  <br>
- After over 200 epochs with this same architecture it seems that the validation MSE is going up and the train MSE is going down. To try and get my MSE lower I would like to make a deeper CNN and augmentation to  the training set.
+ After over 315 epochs with this same architecture it seems that the validation scores are evening out and the train sores are going down. This might be a sign of overfitting. To try and get my MSE and MAE lower I would like to make a deeper CNN and augmentation to the training set.
 
  ### **Training a Deeper CNN** <br>
- I used the same architecture as before but added an additional layer of convultion, pooling and drop out. The arechitecture is shown below.<br>
- ![sdnd](images/summary_CNN5.png)<br>
+ I used the same architecture as before but added 2 additional layer of convultion with increasing filters, along with pooling and drop out for both layers. And I added another flattened layer with 24 nodes. The arechitecture is shown below.<br>
+ ![sdnd](images/CNN5_summary_Xdeep.png)<br>
 
  Below is a plot of the Loss and MSE of 200 epochs with this deeper CNN.<br>
  ![lkd](images/lr_plot_radiusCNN5_200.png)<br>
- This modified architecture does not seem to by getting the MSE to move in a better direction. It still bottoms out at about 140. Instead of Running for hundreds of more epochs or makingthe network deeper at this time I try and do some aumentation of training images.
-
-
+This model seems like it is moving in the right diresction but the MSE at the end is still much hire then the MSE that the shallow CNN left off at. I will run the deep cnn for another 115 epoch to get it to the same traiing time as the shallow CNN for comparason.<br>
+ ![lkd](images/lr_plot_radiusCNN5_315.png)<br>
+After 315 epochs this model has now reached the same MSE as the shallow model , but this one seems to be still decreasing unlike the shallow model. I find this exciting but due to time contrains I will not be able to run for hundreds more epochs at this time. 
 
 
 ### **Adding Augmentation**<br>
@@ -118,20 +120,22 @@ I wrote a generator function that would take batches of images and as the fed in
 ![aug2](images/aug_example_ss.png)<br>
 
 Adding the augmentation generator to the input of the CNN **drastically** increased the fitting speed. Because of the time contrains on this project I decided to just pick two of the augmentation options, flip horazontally and crop, let if fit. <br>
-Below is a plot of 5 epochs of training with augmentation. This training with augmentation was done on the pretrained shallow model so I could compare the effects of deepengi the network vs augmentation. 
+Below is a plot of 5 epochs of training with augmentation. This training with augmentation was done on the pretrained shallow model so I could compare the effects of deepening the network vs augmentation. 
 
-![ii](images/lr_plot_with_augmentation.png)<br>
+![ii](images/lr_plot_aug4_a.png)<br>
 
 The validation MSE seems to still be around 140. 
-The two starategies, augmentation of samples and deepening of network, are hard to compair with the time contraints of this project. Though, I would probably say the MSE MSE may be dipping lower with the augmented data set. 
+The two starategies, augmentation of samples and deepening of network, are hard to compair with the time contraints of this project. Though, I would probably say the MSE may might be dipping lower with the augmented data set if I had more time. 
 
 
 ### **Predict radius on holdout data**
-with deep network: **RMSE 12.11**<br>
-with augmentation: **RMSE 11.92**<br>
-![c](images/compare.png)<br>
+with deep network: **RMSE = 10.42** .......... **R^2 = .12**<br>
+with augmentation: **RMSE = 11.08** ..........**R^2 =  .008**<br>
+<!--![c](images/compare.png)<br>-->
+![dd](images/residuals.png)
 
-![d](images/compare_hist.png)
+![d](images/compare_hist.png)<br>
+It apears the models are just predicting an average and not doing well to predict the two groups . 
 
 
 ________

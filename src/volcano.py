@@ -33,26 +33,57 @@ def volcano_images(X, y,samp=5):
     
     #plt.tight_layout()
     
-def lr_plot(model,model_name):
+def lr_plot(history_obj,model_name):
     ''' input : model , model_name : tf model, str'''
-    history = model.history
+    history = history_obj.history
     x_arr = np.arange(len(history['loss']))+1
     fig = plt.figure(figsize=(12,4))
     ax= fig.add_subplot(1,2,1)
-    ax.plot(x_arr,history['loss'],'-o',label='Train loss')
+    ax.plot(x_arr,history['loss'],'-o',label='train loss')
     ax.plot(x_arr,history['val_loss'],'--<',label='validation loss')
     ax.legend()
     ax.set_xlabel('Epoch',size=15)
     ax.set_ylabel('Loss',size=15)
 
     ax = fig.add_subplot(1,2,2)
-    ax.plot(x_arr,history['accuracy'],'--o',label='Train acc.')
-    ax.plot(x_arr,history['val_accuracy'],'-->',label='Validation acc')
+    ax.plot(x_arr,history['accuracy'],'--o',label='train acc')
+    ax.plot(x_arr,history['val_accuracy'],'-->',label='val acc')
     ax.legend()
     ax.set_xlabel('Epochs',size=15)
-    ax.set_ylabel('Accuacy',size=15)
+    ax.set_ylabel('Score',size=15)
     fig.suptitle(model_name,fontsize='16')
+    #plt.savefig('/home/rachel/Galvanize/capstone2/Cap2-repo/images/lr_plot_with_augmentation.png')
     plt.show()
+
+def augment1(tensor_im):
+    '''input: 3d tensor image
+       this function gives images a random chance at being flipped and cropped
+       output: 3d tensor image'''
+    
+    im = tensor_im
+    if np.random.random() > .5:
+        im = tf.image.random_flip_left_right(im)
+    #if np.random.random() > .5:
+    #    im = tf.image.random_flip_up_down(im)
+    if np.random.random() > .5:
+        im_crop = tf.image.random_crop(im,size=(95,95,1))
+        im = tf.image.resize(im_crop,size=(110,110))
+    
+    #im_lr = tf.expand_dims(im_lr,axis=0)
+    #im_ud = tf.expand_dims(im_ud,axis=0)
+    #im_crop = tf.expand_dims(im_crop,axis=0)
+    #im = tf.expand_dims(im, axis=0)
+    
+    #stack = tf.stack([im_lr,im_ud,im_crop],axis=0)
+    return im
+
+def train_generator(X_train,y_train,batch_size=4):
+    '''continuously takes rand subset of X and its labels,auments them, and sends them into the CNN'''
+    while True:
+        idx = np.random.randint(0,len(X_train),size=batch_size)
+        #X = np.vectorize(augment1)(X_train[idx])
+        X = [augment1(x) for x in X_train[idx]]
+        yield np.array(X), y_train[idx]
 
 
 
