@@ -60,7 +60,9 @@ The loss and accuracy seem to peak out around 12 epochs. The validation accuracy
 
 ### **Predictions On Hold Out Data With Binary Classification CNN**
 
->**Accuracy with Holdout data =  .93 !!**<br>
+>**Accuracy with Holdout data =  .93**<br>
+>**Precision with Holdout data = .98**<br>
+>**Recall wuth holdout data = .97**
 
 Looking at a sample of hold out images we can see how well the CNN was able to pick up on signs of volcanoes that in some cases is very hard to see with the eye. 
 ![vs](images/pred_vs_truth.png)<br>
