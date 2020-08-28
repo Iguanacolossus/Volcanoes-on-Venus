@@ -118,11 +118,20 @@ I wrote a generator function that would take batches of images and as the fed in
 ![aug2](images/aug_example_ss.png)<br>
 
 Adding the augmentation generator to the input of the CNN **drastically** increased the fitting speed. Because of the time contrains on this project I decided to just pick two of the augmentation options, flip horazontally and crop, let if fit. <br>
-Below is a plot of 5 epochs of training with augmentation. This new training was done ontop of the training in the previous section. 
-![ii](images/lr_plot_with augmentation.png)
+Below is a plot of 5 epochs of training with augmentation. This training with augmentation was done on the pretrained shallow model so I could compare the effects of deepengi the network vs augmentation. 
+
+![ii](images/lr_plot_with_augmentation.png)<br>
+
+The validation MSE seems to still be around 140. 
+The two starategies, augmentation of samples and deepening of network, are hard to compair with the time contraints of this project. Though, I would probably say the MSE MSE may be dipping lower with the augmented data set. 
 
 
 ### **Predict radius on holdout data**
+with deep network: **RMSE 12.11**<br>
+with augmentation: **RMSE 11.92**<br>
+![c](images/compare.png)<br>
+
+![d](images/compare_hist.png)
 
 
 ________
